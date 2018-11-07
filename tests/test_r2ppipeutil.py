@@ -10,8 +10,6 @@ sys.path.append(
 #Import the file being tested
 from r2ppipeutil import R2PipeUtility as r2pu
 
-
-
 def test_get_analyzed_r2pipe_from_input():
     
     print("Testing get_analyzed_r2pipe_from_input():")
@@ -35,6 +33,8 @@ def test_get_analyzed_r2pipe_from_input():
 
     print("\nTesting input_obj=file...")
 
+    r2.quit()
+
     r2 = None
     r2 = r2pu.get_analyzed_r2pipe_from_input("/bin/ls")
     if int(r2.cmd('aflc')) == 0:
@@ -43,9 +43,29 @@ def test_get_analyzed_r2pipe_from_input():
         print("Analyzed func count is: ", str(r2.cmd('aflc')))
         print("Testing input_obj=file...TEST PASSED.\n")
 
+    r2.quit()
 
+
+
+def test_get_funcj_list():
+
+    print("Testing get_funcj_list():")
+
+    r2 = r2pu.get_analyzed_r2pipe_from_input("/bin/ls")
+    funcj_list = r2pu.get_funcj_list(r2)
+    
+    if len(funcj_list) > 0:
+
+        print("Length of funcj_list is: ", len(funcj_list))
+        print("Testing get_funcj_list...TEST PASSED.")
+
+    else:
+
+        print("Testing get_funcj_list...TEST FAILED.")
+
+    r2.quit()
 
 if __name__ == '__main__':
 
-    test_get_analyzed_r2pipe_from_input()
-
+    #test_get_analyzed_r2pipe_from_input()
+    test_get_funcj_list()

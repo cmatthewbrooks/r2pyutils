@@ -50,6 +50,30 @@ class R2PipeUtility:
             # If there are no functions, analyze the file
             r2.cmd("aa; aar; aac")
 
-
         return r2
+
+    @staticmethod
+    def get_funcj_list(r2):
+
+        if not ("{0}.{1}".format(r2.__class__.__module__,
+                                 r2.__class__.__name__)
+                                 == R2PipeUtility.R2PIPE_CLASS_NAME):
+            raise Exception('Error: Not a valid r2pipe instance.')
+
+        funcj_list = []
+
+        functions = r2.cmdj("aflj")
+
+        if functions:
+
+            for func in functions:
+
+                funcj = r2.cmdj("pdfj @ " + hex(func['offset']))
+
+                if funcj:
+
+                    funcj_list.append(funcj)
+
+        return funcj_list
+
 
