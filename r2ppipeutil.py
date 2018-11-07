@@ -31,7 +31,9 @@ class R2PipeUtility:
 
         if not input_obj:
             r2 = r2pipe.open()
-        elif str(input_obj.__class__) == R2PipeUtility.R2PIPE_CLASS_NAME:
+        elif ("{0}.{1}".format(input_obj.__class__.__module__,
+                               input_obj.__class__.__name__)
+                               == R2PipeUtility.R2PIPE_CLASS_NAME):
             r2 = input_obj
         elif os.path.isfile(str(input_obj)):
             r2 = r2pipe.open(input_obj)
