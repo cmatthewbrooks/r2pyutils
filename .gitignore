@@ -1,0 +1,20 @@
+# Compiled source #
+###################
+*.pyc
+__init__.py
+
+# Application generated files #
+###############################
+*.sublime-project
+*.sublime-workspace
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.swp
