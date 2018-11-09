@@ -21,5 +21,15 @@ import r2pipe
 class R2FuncUtility:
 
     @staticmethod
-    def Foo():
-        pass
+    def check_is_import_jmp_func(funcj):
+
+        if (len(funcj['ops']) == 1
+            and funcj['size'] == 6
+            and funcj['ops'][0]['type'] == 'jmp'):
+
+            return True
+
+        else:
+
+            return False
+
