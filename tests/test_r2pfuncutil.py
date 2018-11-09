@@ -1,15 +1,14 @@
 """
 Tests TODO:
 
-classify_func
-check_is_analysis_func
-check_is_thunk_func
-check_is_first_round_func
-check_is_utility_func
-check_is_complex_func
+classify_func (needs all checks tested)
+check_is_analysis_func (needs all checks tested)
+check_is_thunk_func (need to find one)
+check_is_first_round_func (need to find one)
+check_is_utility_func (need to find one)
+check_is_complex_func (need to find one)
 get_import_from_import_jmp_func (needs the parse utility)
-get_call_from_wrapper
-get_raw_call_chain_from_funcj
+get_raw_call_chain_from_funcj (should maybe be in another class)
 get_func_stats_list_from_afij (not implemented)
 """
 
