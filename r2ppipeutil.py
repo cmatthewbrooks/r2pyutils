@@ -38,12 +38,12 @@ class R2PipeUtility:
         elif os.path.isfile(str(input_obj)):
             r2 = r2pipe.open(input_obj)
         else:
-            raise Exception('Error: Not inside an r2 session.')
+            raise Exception('Error: Not a valid r2pipe instance.')
 
         try:
             r2.cmd("aflc")
         except IOError:
-            raise Exception('Error: Not inside an r2 session.')
+            raise Exception('Error: Not a valid r2pipe instance.')
 
 
         if int(r2.cmd('aflc')) == 0:
@@ -76,4 +76,32 @@ class R2PipeUtility:
 
         return funcj_list
 
+    @staticmethod
+    def get_function_start_from_offset(r2, offset=None):
+
+        if not ("{0}.{1}".format(r2.__class__.__module__,
+                                 r2.__class__.__name__)
+                                 == R2PipeUtility.R2PIPE_CLASS_NAME):
+            raise Exception('Error: Not a valid r2pipe instance.')
+
+        if offset:
+            return r2.cmdj('afij @ ' + hex(offset))[0]['offset']
+        else:
+            return r2.cmdj('afij')[0]['offset']
+
+
+
+    @staticmethod
+    def get_args_count_to_function_offset(r2, offset=None):
+
+        if not ("{0}.{1}".format(r2.__class__.__module__,
+                                 r2.__class__.__name__)
+                                 == R2PipeUtility.R2PIPE_CLASS_NAME):
+            raise Exception('Error: Not a valid r2pipe instance.')
+
+
+        if offset:
+            return r2.cmdj('afij @ ' + hex(offset))[0]['nargs']
+        else:
+            return r2.cmdj('afij')[0]['nargs']
 

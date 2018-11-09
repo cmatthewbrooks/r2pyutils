@@ -65,7 +65,54 @@ def test_get_funcj_list():
 
     r2.quit()
 
+def test_get_function_start_from_offset():
+
+    r2 = r2pu.get_analyzed_r2pipe_from_input("test.exe")
+    
+    # Address 0x40100a belongs to fcn.401000
+    r2.cmd("s 0x40100a")
+    
+    if hex(r2pu.get_function_start_from_offset(r2)) == '0x401000':
+        print("TEST get_function_start_from_offset PASSED.")
+    else:
+        print("TEST get_function_start_from_offset FAILED.")
+
+    # Seek back and try to manually pass the offset this time.
+    r2.cmd("s-")
+    
+    if hex(r2pu.get_function_start_from_offset(r2,0x40100a)) == '0x401000':
+        print("TEST get_function_start_from_offset PASSED.")
+    else:
+        print("TEST get_function_start_from_offset FAILED.")
+
+    r2.quit()
+
+def test_get_args_count_to_function_offset():
+
+    r2 = r2pu.get_analyzed_r2pipe_from_input("test.exe")
+    
+    # Address 0x401020 is the 'add' function that takes 2 args
+    r2.cmd("s 0x401020")
+    
+    if int(r2pu.get_args_count_to_function_offset(r2)) == 2:
+        print("TEST get_args_count_to_function_offset PASSED.")
+    else:
+        print("TEST get_args_count_fo_function_offset FAILED.")
+
+    # Seek back and try to manually pass the offset this time.
+    r2.cmd("s-")
+    
+    if int(r2pu.get_args_count_to_function_offset(r2,0x40102a)) == 2:
+        print("TEST get_args_count_to_function_offset PASSED.")
+    else:
+        print("TEST get_args_count_fo_function_offset FAILED.")
+    
+    r2.quit()
+
+
 if __name__ == '__main__':
 
     #test_get_analyzed_r2pipe_from_input()
-    test_get_funcj_list()
+    #test_get_funcj_list()
+    #test_get_function_start_from_offset()
+    test_get_args_count_to_function_offset()
