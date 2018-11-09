@@ -19,7 +19,11 @@ IMPORT_FUNCJ = json.loads(
 GLOBALASSIGN_FUNCJ = json.loads(
 """
 {"name":"globalassign_fcn100014fe","size":11,"addr":268440830,"ops":[{"offset":268440830,"ptr":268455952,"val":4294967295,"esil":"4294967295,0x10005010,=[4]","refptr":true,"fcn_addr":268440830,"fcn_last":268440831,"size":10,"opcode":"mov dword [0x10005010], 0xffffffff","disasm":"mov dword [0x10005010], 0xffffffff","bytes":"c70510500010ffffffff","family":"cpu","type":"mov","type_num":9,"type2_num":0,"flags":["globalassign_fcn100014fe","r2kit_analyzed_func","global_assignment_func"],"xrefs":[{"addr":268440814,"type":"CALL"}]},{"offset":268440840,"esil":"esp,[4],eip,=,4,esp,+=","refptr":false,"fcn_addr":268440830,"fcn_last":268440840,"size":1,"opcode":"ret","disasm":"ret","bytes":"c3","family":"cpu","type":"ret","type_num":5,"type2_num":0}]}
+""")
 
+WRAPPER_FUNCJ = json.loads(
+"""
+{"name":"wrapper_call_fcn.10001a14","size":9,"addr":268441705,"ops":[{"offset":268441705,"ptr":8,"val":8,"esil":"8,4,esp,-,=[4],4,esp,-=","refptr":false,"fcn_addr":268441705,"fcn_last":268441712,"size":2,"opcode":"push 8","disasm":"push 8","bytes":"6a08","family":"cpu","type":"push","type_num":13,"type2_num":0,"flags":["wrapper_call_fcn.10001a14","r2kit_analyzed_func","wrapper_func"],"xrefs":[{"addr":268441689,"type":"CALL"}]},{"offset":268441707,"esil":"268442132,eip,4,esp,-=,esp,=[],eip,=","refptr":false,"fcn_addr":268441705,"fcn_last":268441709,"size":5,"opcode":"call 0x10001a14","disasm":"call jmp_sym.imp.MSVCR110.dll__unlock","bytes":"e8a4010000","family":"cpu","type":"call","type_num":3,"type2_num":0,"jump":268442132,"fail":268441712},{"offset":268441712,"esil":"esp,[4],ecx,=,4,esp,+=","refptr":false,"fcn_addr":268441705,"fcn_last":268441713,"size":1,"opcode":"pop ecx","disasm":"pop ecx","bytes":"59","family":"cpu","type":"pop","type_num":14,"type2_num":0},{"offset":268441713,"esil":"esp,[4],eip,=,4,esp,+=","refptr":false,"fcn_addr":268441705,"fcn_last":268441713,"size":1,"opcode":"ret","disasm":"ret","bytes":"c3","family":"cpu","type":"ret","type_num":5,"type2_num":0}]}
 """)
 
 def test_check_is_import_jmp_func():
@@ -36,7 +40,19 @@ def test_check_is_globalassign_func():
     else:
         return False
 
+def test_check_is_wrapper_func():
 
+    if r2fu.check_is_wrapper_func(WRAPPER_FUNCJ):
+        return True
+    else:
+        return False
+
+def test_get_call_count_from_funcj():
+
+    if r2fu.get_call_count_from_funcj(WRAPPER_FUNCJ) == 1:
+        return True
+    else:
+        return False
 
 if __name__ == '__main__':
 
@@ -44,6 +60,18 @@ if __name__ == '__main__':
 
     if not test_check_is_import_jmp_func():
         print("test_check_is_import_jmp_func FAILED")
+        fail_count += 1
+
+    if not test_check_is_globalassign_func():
+        print("test_check_is_globalassign_func FAILED")
+        fail_count += 1
+
+    if not test_check_is_wrapper_func():
+        print("test_check_is_wrapper_func FAILED")
+        fail_count += 1
+
+    if not test_get_call_count_from_funcj():
+        print("test_get_call_count_from_funcj FAILED")
         fail_count += 1
 
     if fail_count == 0:
