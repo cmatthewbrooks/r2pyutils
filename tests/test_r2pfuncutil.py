@@ -1,3 +1,18 @@
+"""
+Tests TODO:
+
+classify_func
+check_is_analysis_func
+check_is_thunk_func
+check_is_first_round_func
+check_is_utility_func
+check_is_complex_func
+get_import_from_import_jmp_func (needs the parse utility)
+get_call_from_wrapper
+get_raw_call_chain_from_funcj
+get_func_stats_list_from_afij (not implemented)
+"""
+
 
 import os,sys
 import json
@@ -46,6 +61,14 @@ def test_check_is_wrapper_func():
         return True
     else:
         return False
+
+def test_get_call_from_wrapper():
+
+    if (r2fu.get_call_from_wrapper(WRAPPER_FUNCJ) ==
+        "call jmp_sym.imp.MSVCR110.dll__unlock"):
+        return True
+    else:
+        return False 
 
 def test_get_call_count_from_funcj():
 
