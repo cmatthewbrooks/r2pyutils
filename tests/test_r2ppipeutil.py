@@ -10,62 +10,50 @@ sys.path.append(
 #Import the file being tested
 from r2ppipeutil import R2PipeUtility as r2pu
 
-def test_get_analyzed_r2pipe_from_input():
+def test_get_analyzed_r2pipe_from_input_with_none():
     
-    print("Testing get_analyzed_r2pipe_from_input():")
-
-    print("\nTesting input_obj=None...")
-
     try:
         r2 = r2pu.get_analyzed_r2pipe_from_input()
     except Exception:
-        print ("Testing input_obj=None...TEST PASSED.\n")
+        return True
 
-    print("\nTesting input_obj=R2PIPE_CLASS_NAME...")
-    
-    r2 = r2pipe.open("/bin/ls")
+def test_get_analyzed_r2pipe_from_input_with_pipe():
+
+    r2 = r2pipe.open("test.exe")
     r2 = r2pu.get_analyzed_r2pipe_from_input(r2)
+
     if int(r2.cmd('aflc')) == 0:
-        print("Testing input_obj=R2PIPE_CLASS_NAME...TEST FAILED.\n")
+        r2.quit()
+        return False
     else:
-        print("Analyzed func count is: ", str(r2.cmd('aflc')))
-        print("Testing input_obj=R2PIPE_CLASS_NAME...TEST PASSED.\n")
+        r2.quit()
+        return True
 
-    print("\nTesting input_obj=file...")
+def test_get_analyzed_r2pipe_from_input_with_file():
 
-    r2.quit()
+    r2 = r2pu.get_analyzed_r2pipe_from_input("test.exe")
 
-    r2 = None
-    r2 = r2pu.get_analyzed_r2pipe_from_input("/bin/ls")
     if int(r2.cmd('aflc')) == 0:
-        print("Testing input_obj=file...TEST FAILED.\n")
+        r2.quit()
+        return False
     else:
-        print("Analyzed func count is: ", str(r2.cmd('aflc')))
-        print("Testing input_obj=file...TEST PASSED.\n")
-
-    r2.quit()
-
-
+        r2.quit()
+        return True
 
 def test_get_funcj_list():
 
-    print("Testing get_funcj_list():")
-
-    r2 = r2pu.get_analyzed_r2pipe_from_input("/bin/ls")
+    r2 = r2pu.get_analyzed_r2pipe_from_input("test.exe")
+    
     funcj_list = r2pu.get_funcj_list(r2)
     
     if len(funcj_list) > 0:
-
-        print("Length of funcj_list is: ", len(funcj_list))
-        print("Testing get_funcj_list...TEST PASSED.")
-
+        r2.quit()
+        return True
     else:
+        r2.quit()
+        return False
 
-        print("Testing get_funcj_list...TEST FAILED.")
-
-    r2.quit()
-
-def test_get_function_start_from_offset():
+def test_get_function_start_from_offset_with_none():
 
     r2 = r2pu.get_analyzed_r2pipe_from_input("test.exe")
     
@@ -73,21 +61,24 @@ def test_get_function_start_from_offset():
     r2.cmd("s 0x40100a")
     
     if hex(r2pu.get_function_start_from_offset(r2)) == '0x401000':
-        print("TEST get_function_start_from_offset PASSED.")
+        r2.quit()
+        return True
     else:
-        print("TEST get_function_start_from_offset FAILED.")
+        r2.quit()
+        return False
 
-    # Seek back and try to manually pass the offset this time.
-    r2.cmd("s-")
+def test_get_function_start_from_offset_with_offset():
+
+    r2 = r2pu.get_analyzed_r2pipe_from_input("test.exe")
     
     if hex(r2pu.get_function_start_from_offset(r2,0x40100a)) == '0x401000':
-        print("TEST get_function_start_from_offset PASSED.")
+        r2.quit()
+        return True
     else:
-        print("TEST get_function_start_from_offset FAILED.")
+        r2.quit()
+        return False
 
-    r2.quit()
-
-def test_get_args_count_to_function_offset():
+def test_get_args_count_to_function_offset_with_none():
 
     r2 = r2pu.get_analyzed_r2pipe_from_input("test.exe")
     
@@ -95,24 +86,59 @@ def test_get_args_count_to_function_offset():
     r2.cmd("s 0x401020")
     
     if int(r2pu.get_args_count_to_function_offset(r2)) == 2:
-        print("TEST get_args_count_to_function_offset PASSED.")
+        r2.quit()
+        return True
     else:
-        print("TEST get_args_count_fo_function_offset FAILED.")
+        r2.quit()
+        return False
 
-    # Seek back and try to manually pass the offset this time.
-    r2.cmd("s-")
+def test_get_args_count_to_function_offset_with_offset():
+
+    r2 = r2pu.get_analyzed_r2pipe_from_input("test.exe")
     
     if int(r2pu.get_args_count_to_function_offset(r2,0x40102a)) == 2:
-        print("TEST get_args_count_to_function_offset PASSED.")
+        r2.quit()
+        return True
     else:
-        print("TEST get_args_count_fo_function_offset FAILED.")
-    
-    r2.quit()
+        r2.quit()
+        return False
 
 
 if __name__ == '__main__':
 
-    test_get_analyzed_r2pipe_from_input()
-    test_get_funcj_list()
-    test_get_function_start_from_offset()
-    test_get_args_count_to_function_offset()
+    fail_count = 0
+
+    if not test_get_analyzed_r2pipe_from_input_with_none():
+        print("test_get_analyzed_r2pipe_from_input_with_none FAILED")
+        fail_count += 1
+
+    if not test_get_analyzed_r2pipe_from_input_with_pipe():
+        print("test_get_analyzed_r2pipe_from_input_with_pipe FAILED")
+        fail_count += 1
+
+    if not test_get_analyzed_r2pipe_from_input_with_file():
+        print("test_get_analyzed_r2pipe_from_input_with_file FAILED")
+        fail_count += 1
+
+    if not test_get_funcj_list():
+        print("test_get_funcj_list FAILED")
+        fail_count += 1
+
+    if not test_get_function_start_from_offset_with_none():
+        print("test_get_function_start_from_offset_with_none FAILED")
+        fail_count += 1
+
+    if not test_get_function_start_from_offset_with_offset():
+        print("test_get_function_start_from_offset_with_offset FAILED")
+        fail_count += 1
+
+    if not test_get_args_count_to_function_offset_with_none():
+        print("test_get_args_count_to_function_offset_with_none FAILED")
+        fail_count += 1
+
+    if not test_get_args_count_to_function_offset_with_offset():
+        print("test_get_args_count_to_function_offset_with_offset FAILED")
+        fail_count += 1
+
+    if fail_count == 0:
+        print("\nALL TESTS PASSED")
