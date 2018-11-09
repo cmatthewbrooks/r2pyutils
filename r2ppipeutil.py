@@ -27,13 +27,24 @@ class R2PipeUtility:
     R2PIPE_CLASS_NAME = 'r2pipe.open'
 
     @staticmethod
+    def is_valid_r2pipe_instance(r2):
+        
+        if ("{0}.{1}".format(r2.__class__.__module__,
+                             r2.__class__.__name__)
+                             == R2PipeUtility.R2PIPE_CLASS_NAME):
+
+            return True
+
+        else:
+
+            return False
+
+    @staticmethod
     def get_analyzed_r2pipe_from_input(input_obj = None):
 
         if not input_obj:
             r2 = r2pipe.open()
-        elif ("{0}.{1}".format(input_obj.__class__.__module__,
-                               input_obj.__class__.__name__)
-                               == R2PipeUtility.R2PIPE_CLASS_NAME):
+        elif R2PipeUtility.is_valid_r2pipe_instance(input_obj):
             r2 = input_obj
         elif os.path.isfile(str(input_obj)):
             r2 = r2pipe.open(input_obj)
@@ -48,16 +59,14 @@ class R2PipeUtility:
 
         if int(r2.cmd('aflc')) == 0:
             # If there are no functions, analyze the file
-            r2.cmd("aa; aar; aac")
+            r2.cmd("aa; aar; aac; afta")
 
         return r2
 
     @staticmethod
     def get_funcj_list(r2):
 
-        if not ("{0}.{1}".format(r2.__class__.__module__,
-                                 r2.__class__.__name__)
-                                 == R2PipeUtility.R2PIPE_CLASS_NAME):
+        if not R2PipeUtility.is_valid_r2pipe_instance(r2):
             raise Exception('Error: Not a valid r2pipe instance.')
 
         funcj_list = []
@@ -79,11 +88,9 @@ class R2PipeUtility:
     @staticmethod
     def get_function_start_from_offset(r2, offset=None):
 
-        if not ("{0}.{1}".format(r2.__class__.__module__,
-                                 r2.__class__.__name__)
-                                 == R2PipeUtility.R2PIPE_CLASS_NAME):
+        if not R2PipeUtility.is_valid_r2pipe_instance(r2):
             raise Exception('Error: Not a valid r2pipe instance.')
-
+        
         if offset:
             return r2.cmdj('afij @ ' + hex(offset))[0]['offset']
         else:
@@ -94,11 +101,8 @@ class R2PipeUtility:
     @staticmethod
     def get_args_count_to_function_offset(r2, offset=None):
 
-        if not ("{0}.{1}".format(r2.__class__.__module__,
-                                 r2.__class__.__name__)
-                                 == R2PipeUtility.R2PIPE_CLASS_NAME):
+        if not R2PipeUtility.is_valid_r2pipe_instance(r2):
             raise Exception('Error: Not a valid r2pipe instance.')
-
 
         if offset:
             return r2.cmdj('afij @ ' + hex(offset))[0]['nargs']

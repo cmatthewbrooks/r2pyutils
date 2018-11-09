@@ -112,7 +112,7 @@ def test_get_args_count_to_function_offset():
 
 if __name__ == '__main__':
 
-    #test_get_analyzed_r2pipe_from_input()
-    #test_get_funcj_list()
-    #test_get_function_start_from_offset()
+    test_get_analyzed_r2pipe_from_input()
+    test_get_funcj_list()
+    test_get_function_start_from_offset()
     test_get_args_count_to_function_offset()
