@@ -33,3 +33,15 @@ class R2FuncUtility:
 
             return False
 
+    @staticmethod
+    def check_is_global_assignment_func(funcj):
+
+        if (funcj['ops'][0]['type'] == 'mov'
+            and funcj['ops'][1]['type'] == 'ret'):
+
+            return True
+
+        else:
+
+            return False
+
