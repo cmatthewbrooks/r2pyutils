@@ -103,6 +103,31 @@ def test_get_args_count_to_function_offset_with_offset():
         r2.quit()
         return False
 
+def test_get_call_xref_list_to_function_offset_with_none():
+
+    r2 = r2pu.get_analyzed_r2pipe_from_input("test.exe")
+
+    r2.cmd("s 0x401020")
+
+    if len(r2pu.get_call_xref_list_to_function_offset(r2)) == 3:
+        r2.quit()
+        return True
+    else:
+        r2.quit()
+        return False
+
+def test_get_call_xref_list_to_function_offset_with_offset():
+ 
+    r2 = r2pu.get_analyzed_r2pipe_from_input("test.exe")
+
+    if len(r2pu.get_call_xref_list_to_function_offset(r2,0x401020)) == 3:
+        r2.quit()
+        return True
+    else:
+        r2.quit()
+        return False   
+
+
 
 if __name__ == '__main__':
 
@@ -138,6 +163,14 @@ if __name__ == '__main__':
 
     if not test_get_args_count_to_function_offset_with_offset():
         print("test_get_args_count_to_function_offset_with_offset FAILED")
+        fail_count += 1
+
+    if not test_get_call_xref_list_to_function_offset_with_none():
+        print("test_get_call_xref_list_to_function_offset_with_none FAILED")
+        fail_count += 1
+
+    if not test_get_call_xref_list_to_function_offset_with_offset():
+        print("test_get_call_xref_list_to_function_offset_with_offset FAILED")
         fail_count += 1
 
     if fail_count == 0:

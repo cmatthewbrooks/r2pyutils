@@ -109,3 +109,25 @@ class R2PipeUtility:
         else:
             return r2.cmdj('afij')[0]['nargs']
 
+    @staticmethod
+    def get_call_xref_list_to_function_offset(r2, offset=None):
+
+        if not R2PipeUtility.is_valid_r2pipe_instance(r2):
+            raise Exception('Error: Not a valid r2pipe instance.')
+
+        xref_list = []
+
+        if offset:
+            funcj = r2.cmdj('pdfj @ ' + hex(offset))
+        else:
+            funcj = r2.cmdj('pdfj')
+
+        # The [0] hack is because xrefs to the function will
+        # only be included in the first ops entry.
+        if 'xrefs' in funcj['ops'][0]:
+            for xref in funcj['ops'][0]['xrefs']:
+                if xref['type'] == 'CALL':
+                    xref_list.append(xref['addr'])
+
+        return xref_list
+
