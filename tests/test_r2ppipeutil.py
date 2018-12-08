@@ -14,8 +14,9 @@ def test_get_analyzed_r2pipe_from_input_with_none():
     
     try:
         r2 = r2pu.get_analyzed_r2pipe_from_input()
-    except Exception:
         return True
+    except Exception:
+        return False
 
 def test_get_analyzed_r2pipe_from_input_with_pipe():
 

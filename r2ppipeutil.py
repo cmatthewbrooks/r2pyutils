@@ -24,7 +24,7 @@ class R2PipeUtility:
     object.
     '''
 
-    R2PIPE_CLASS_NAME = 'r2pipe.open'
+    R2PIPE_CLASS_NAME = 'r2pipe.open_sync.open'
 
     @staticmethod
     def is_valid_r2pipe_instance(r2):
