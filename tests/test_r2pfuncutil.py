@@ -23,7 +23,7 @@ sys.path.append(
 )
 
 #Import the file being tested
-from r2pfuncutil import R2FuncUtility as r2fu
+from r2pyutils.r2pfuncutil import R2FuncUtility as r2fu
 
 IMPORT_FUNCJ = json.loads(
 """

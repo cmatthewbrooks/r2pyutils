@@ -8,7 +8,7 @@ sys.path.append(
 )
 
 #Import the file being tested
-from r2ppipeutil import R2PipeUtility as r2pu
+from r2pyutils.r2ppipeutil import R2PipeUtility as r2pu
 
 def test_get_analyzed_r2pipe_from_input_with_none():
     
