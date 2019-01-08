@@ -12,6 +12,9 @@ setup(
         'console_scripts': [
         'funcstrings = r2pyutils.funcstrings:main'
         ]
-    }
+    },
+    install_requires = [
+        'r2pipe'
+    ]
 
 )
