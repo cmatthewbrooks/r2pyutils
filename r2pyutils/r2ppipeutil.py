@@ -49,17 +49,21 @@ class R2PipeUtility:
         elif os.path.isfile(str(input_obj)):
             r2 = r2pipe.open(input_obj)
         else:
-            raise Exception('Error: Not a valid r2pipe instance.')
+            raise Exception(
+                'Not a valid r2pipe instance or not inside an r2 session.'
+            )
 
         try:
-            r2.cmd("aflc")
-        except IOError:
-            raise Exception('Error: Not a valid r2pipe instance.')
-
-
-        if int(r2.cmd('aflc')) == 0:
-            # If there are no functions, analyze the file
-            r2.cmd("aa; aar; aac; afta")
+            r2.cmd('aflc')
+        except AttributeError, e:
+            if '\'open\' object has no attribute \'_cmd\'' in e:
+                raise Exception(
+                    'Not a valid r2pipe instance or not inside an r2 session.'
+                )
+        else:
+            if int(r2.cmd('aflc')) == 0:
+                # If there are no functions, analyze the file
+                r2.cmd("aa; aar; aac; afta")
 
         return r2
 
