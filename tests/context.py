@@ -13,3 +13,4 @@ from r2pyutils.r2ppipeutil import R2PipeUtility as r2pu
 from r2pyutils.r2pfuncutil import R2FuncUtility as r2fu
 
 from r2pyutils.funcstrings import get_func_strings
+from r2pyutils.funclist import FuncList as FuncList
