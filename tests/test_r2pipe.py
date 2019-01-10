@@ -27,8 +27,8 @@ class TestR2Pipe(unittest.TestCase):
 
         try:
             r2.cmd('aflc')
-        except AttributeError, e:
-            self.assertIn('\'open\' object has no attribute \'_cmd\'', e)
+        except AttributeError as e:
+            self.assertIn('\'open\' object has no attribute \'_cmd\'', e.args)
 
         # No need to r2.quit() b/c there isn't actually a pipe open.
 

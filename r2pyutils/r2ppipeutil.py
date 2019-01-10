@@ -55,8 +55,8 @@ class R2PipeUtility:
 
         try:
             r2.cmd('aflc')
-        except AttributeError, e:
-            if '\'open\' object has no attribute \'_cmd\'' in e:
+        except AttributeError as e:
+            if '\'open\' object has no attribute \'_cmd\'' in e.args:
                 raise Exception(
                     'Not a valid r2pipe instance or not inside an r2 session.'
                 )
