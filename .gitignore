@@ -1,7 +1,8 @@
-# Compiled source #
+# Python stuff #
 ###################
 *.pyc
 __init__.py
+*.egg-info/
 
 # Application generated files #
 ###############################
