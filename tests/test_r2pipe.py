@@ -25,12 +25,7 @@ class TestR2Pipe(unittest.TestCase):
 
         r2 = r2pipe.open()
 
-        try:
-            r2.cmd('aflc')
-        except AttributeError as e:
-            self.assertIn('\'open\' object has no attribute \'_cmd\'', e.args)
-
-        # No need to r2.quit() b/c there isn't actually a pipe open.
+        self.assertEqual(r2.cmdj('ij')['core']['file'],'malloc://512')
 
 if __name__ == '__main__':
     unittest.main()

@@ -13,15 +13,13 @@ TEST_FILE = os.path.join(
 class TestR2PPipeUtil(unittest.TestCase):
 
     def test_get_analyzed_r2pipe_from_input_with_none(self):
-        # As of r2pipe 1.2.0, the following error is thrown if
-        # an empty pipe is opened outside a session:
-        #
-        # AttributeError: 'open' object has no attribute '_cmd'
+        
+        with self.assertRaises(Exception) as context:
+            
+            r2pu.get_analyzed_r2pipe_from_input()
 
-        self.assertRaises(Exception,
-                          lambda: r2pu.get_analyzed_r2pipe_from_input())
-
-    
+        self.assertTrue('Inside empty session' in str(context.exception))
+            
     def test_get_analyzed_r2pipe_from_input_with_pipe(self):
         
         r2 = r2pipe.open(TEST_FILE)

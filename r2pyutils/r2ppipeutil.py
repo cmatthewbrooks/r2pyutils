@@ -25,6 +25,7 @@ class R2PipeUtility:
     '''
 
     R2PIPE_CLASS_NAME = 'r2pipe.open_sync.open'
+    EMPTY_PIPE_FILE_NAME = 'malloc://512'
 
     @staticmethod
     def is_valid_r2pipe_instance(r2):
@@ -53,6 +54,11 @@ class R2PipeUtility:
                 'Not a valid r2pipe instance or not inside an r2 session.'
             )
 
+
+        if r2.cmdj('ij')['core']['file'] == R2PipeUtility.EMPTY_PIPE_FILE_NAME:
+            raise Exception('Inside empty session')
+
+
         try:
             r2.cmd('aflc')
         except AttributeError as e:
@@ -64,6 +70,7 @@ class R2PipeUtility:
             if int(r2.cmd('aflc')) == 0:
                 # If there are no functions, analyze the file
                 r2.cmd("aa; aar; aac; afta")
+
 
         return r2
 
