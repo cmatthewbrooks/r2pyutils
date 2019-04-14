@@ -14,5 +14,5 @@ sys.path.append(
 import r2pyutils.r2ppipeutil as r2pu
 import r2pyutils.r2pfuncutil as r2fu
 
-#from r2pyutils.funcstrings import get_func_strings
+from r2pyutils.funcstrings import get_func_strings
 from r2pyutils.funclist import FuncList as FuncList

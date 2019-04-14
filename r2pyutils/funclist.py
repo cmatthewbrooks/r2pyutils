@@ -3,8 +3,8 @@ import argparse
 
 import r2pipe
 
-import r2ppipeutil as r2pu
-import r2pfuncutil as r2fu
+import r2pyutils.r2ppipeutil as r2pu
+import r2pyutils.r2pfuncutil as r2fu
 
 
 

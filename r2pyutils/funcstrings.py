@@ -4,7 +4,8 @@ import json, base64
 
 import r2pipe
 
-from .r2ppipeutil import R2PipeUtility as r2pu
+import r2pyutils.r2ppipeutil
+
 
 
 def get_func_strings(r2):
