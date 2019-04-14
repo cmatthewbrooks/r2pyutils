@@ -3,8 +3,8 @@ import argparse
 
 import r2pipe
 
-from .r2ppipeutil import R2PipeUtility as r2pu
-from .r2pfuncutil import R2FuncUtility as r2fu
+import r2ppipeutil as r2pu
+import r2pfuncutil as r2fu
 
 
 
