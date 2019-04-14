@@ -147,7 +147,6 @@ def check_is_thunk_func(funcj):
         return False
 
 
-
 def get_call_count_from_funcj(funcj):
 
     count = 0
@@ -158,40 +157,3 @@ def get_call_count_from_funcj(funcj):
             count += 1
 
     return count
-
-
-def get_import_from_import_jmp_func(funcj):
-
-    op = funcj['ops'][0]
-
-    return R2ParserUtility.parse_import_from_import_jmp_disasm(op)
-
-# The get_call_from_wrapper method needs better thought and
-# design. It's hacky right now.
-
-
-def get_call_from_wrapper(funcj):
-
-    wrapper_call = ''
-
-    for op in funcj['ops']:
-        if 'call' in op.get('disasm','N/A'):
-            wrapper_call = op.get('disasm','N/A')
-
-    return wrapper_call
-
-
-def get_raw_call_chain_from_funcj(funcj):
-
-    call_chain = []
-
-    for op in funcj['ops']:
-        if op['type'] in ['call','ucall']:
-            call_chain.append(op['disasm'])
-
-    return call_chain
-
-
-def get_func_stats_list_from_afij(afij):
-    pass
-

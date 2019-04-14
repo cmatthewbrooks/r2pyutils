@@ -54,11 +54,6 @@ class TestR2FuncUtility(unittest.TestCase):
 
         self.assertTrue(r2fu.check_is_wrapper_func(WRAPPER_FUNCJ))
 
-    def test_get_call_from_wrapper(self):
-
-        self.assertEqual(r2fu.get_call_from_wrapper(WRAPPER_FUNCJ),
-            "call jmp_sym.imp.MSVCR110.dll__unlock")
-
     def test_get_call_count_from_funcj(self):
 
         self.assertTrue(r2fu.get_call_count_from_funcj(WRAPPER_FUNCJ) == 1)
