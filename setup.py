@@ -11,7 +11,8 @@ setup(
     entry_points = {
         'console_scripts': [
         'funcstrings = r2pyutils.funcstrings:main',
-        'funclist = r2pyutils.funclist:main'
+        'funclist = r2pyutils.funclist:main',
+        'r2pyutils-test = tests.run_tests:main'
         ]
     },
     install_requires = [
